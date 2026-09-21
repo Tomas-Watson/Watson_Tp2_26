@@ -8,6 +8,11 @@ public class ConversionResponse {
     private double montoConvertido;
     private String fecha;
 
+
+    public ConversionResponse(){
+
+    }
+
     public ConversionResponse(double montoOriginal, String monedaOrigen, String monedaDestino, double tasaCambio, double montoConvertido, String fecha){
         this.montoOriginal = montoOriginal;
         this.monedaOrigen = monedaOrigen;

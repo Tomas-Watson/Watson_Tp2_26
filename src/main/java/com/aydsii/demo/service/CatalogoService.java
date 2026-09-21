@@ -1,5 +1,6 @@
 package com.aydsii.demo.service;
 
+import com.aydsii.demo.model.Categoria;
 import com.aydsii.demo.model.Producto;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +19,28 @@ public class CatalogoService {
     private List<Producto> productos = new ArrayList<>();
 
     public CatalogoService(){
-        productos.add(new Producto(1L, "Mouse Inalambrico", "Perifericos", 15000, 40));
-        productos.add(new Producto(2L, "Teclado Mecanico", "Perifericos", 45000, 59));
-        productos.add(new Producto(3L, "Monitor 24 pulgadas", "Monitores", 150000, 12));
-        productos.add(new Producto(4L, "Auriculares Gaming", "Perifericos", 50000, 63));
-        productos.add(new Producto(5L, "Memoria RAM 16GB", "Componentes", 84000, 27));
-        productos.add(new Producto(6L, "Disco SSD 1TB", "Componentes", 145000, 27));
-        productos.add(new Producto(7L, "Gabinete ATX", "Componentes", 30000, 31));
-        productos.add(new Producto(8L, "Silla Ergonomica", "Mueble", 200000, 48));
+
+        Categoria catPerifericos = new Categoria();
+        catPerifericos.setNombre("Perifericos");
+
+        Categoria catMonitores = new Categoria();
+        catMonitores.setNombre("Monitores");
+
+        Categoria catComponentes = new Categoria();
+        catComponentes.setNombre("Componentes");
+
+        Categoria catMueble = new Categoria();
+        catMueble.setNombre("Mueble");
+
+        
+        productos.add(new Producto(1L, "Mouse Inalambrico", catPerifericos, 15000.0, 40));
+        productos.add(new Producto(2L, "Teclado Mecanico", catPerifericos, 45000.0, 59));
+        productos.add(new Producto(3L, "Monitor 24 pulgadas", catMonitores, 150000.0, 12));
+        productos.add(new Producto(4L, "Auriculares Gaming", catPerifericos, 50000.0, 63));
+        productos.add(new Producto(5L, "Memoria RAM 16GB", catComponentes, 84000.0, 27));
+        productos.add(new Producto(6L, "Disco SSD 1TB", catComponentes, 145000.0, 27));
+        productos.add(new Producto(7L, "Gabinete ATX", catComponentes, 30000.0, 31));
+        productos.add(new Producto(8L, "Silla Ergonomica", catMueble, 200000.0, 48));
     }
 
     public List<Producto> obtenerTodos() {
@@ -36,12 +51,10 @@ public class CatalogoService {
         return productos.stream()
             //Si la categoria, precio minimo o precio maximo son nulos, entonces no filtra
             //Si viene texto buscara coincidencias excatas
-            .filter(p-> categoria == null || p.getCategoria().equalsIgnoreCase(categoria))
-            //si viene un numero buscara que se mayor o igual
-            .filter(p-> precioMin == null || p.getPrecio() >= precioMin)
-            //si viene un numero buscara que sea menor o igual
-            .filter(p-> precioMax == null || p.getPrecio() <= precioMax)
-            .collect(Collectors.toList());
+            .filter(p -> categoria == null || (p.getCategoria() != null && p.getCategoria().getNombre().equalsIgnoreCase(categoria)))
+                .filter(p -> precioMin == null || p.getPrecio() >= precioMin)
+                .filter(p -> precioMax == null || p.getPrecio() <= precioMax)
+                .collect(Collectors.toList());
     }
 
     public List<Producto> ordenarProductos(String criterio, String orden){

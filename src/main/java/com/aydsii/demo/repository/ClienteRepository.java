@@ -4,6 +4,11 @@ import com.aydsii.demo.model.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+/*
+* La anotacion @Repository marca una clase como un componente de acceso
+* a datos que interectua directamente con una base de datos.
+*
+*/
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
     /*

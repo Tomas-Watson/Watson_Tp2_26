@@ -17,6 +17,12 @@ public class ClienteDTO {
     @Size(min = 2, message = "El apellido debe tener al emnos dos caracteres")
     private String apellido;
 
+    /*
+    *
+    * La anotacion @Pattern valida que un campo de tipo texto
+    * coincida con una expresion regular (regex) 
+    * 
+    */
    @Pattern(regexp = "\\d*", message = "El teléfono solo debe contener dígitos")
     private String telefono; 
 

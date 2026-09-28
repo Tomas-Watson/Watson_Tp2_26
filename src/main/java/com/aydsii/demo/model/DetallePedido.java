@@ -14,13 +14,18 @@ public class DetallePedido {
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
+    /*
+    *
+    *La anotacion @ManyToOne sirve para mapear uan relacion de muchos
+    * a uno entre dos entidades de la base de datos 
+    */
     @ManyToOne 
     @JoinColumn(name = "producto_id")
     private Producto producto; 
 
     private Integer cantidad;
 
-    @Column(name = "precio_unitario")
+    @Column(name = "precio_unitario") //Con el name, declaro el nombre de tendra la columna en la BD
     private Double precioUnitario;
 
     public Double getSubtotal() {

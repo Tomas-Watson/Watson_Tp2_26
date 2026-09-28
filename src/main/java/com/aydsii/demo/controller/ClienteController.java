@@ -8,6 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/*
+* La anotacion @RequestMapping sirve para conectar las peticiones web en una
+* URL con los metodos especificos de un controlador
+*/
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {

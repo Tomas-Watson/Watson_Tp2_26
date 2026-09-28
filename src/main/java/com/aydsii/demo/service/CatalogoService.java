@@ -12,7 +12,7 @@ import java.util.Comparator;
 
 
 /*
-*La anotacion @Service sirve par aque SpringBoot lo detecte automaticamente.
+*La anotacion @Service sirve para aque SpringBoot lo detecte automaticamente.
 */
 @Service
 public class CatalogoService {

@@ -11,10 +11,27 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /*
+    *La naotacion @JoinColumn sirve para especificar y personalizar la 
+    *columna de clave externa (foreign key) que vincula dos tablas en una
+    *relacion entre entidades
+    *
+    *
+    * 
+    */
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;    
 
+    /*
+    *La anotacion @Column sirve para conectar y personalizar un atributo de
+    *uan clase de entidadcon una columna especifica de una tabla de la base
+    *de datos
+    *
+    * Si no se usa, Springa asigna automaticamente el campo de Java a una 
+    * columna con su mismo nombre
+    * 
+    */
     @Column(name = "fecha_pedido")
     private LocalDate fechaPedido;
 

@@ -24,23 +24,15 @@ public class DivisasService {
     }
 
     public ConversionResponse consultarYGuardar(String origen, String destino, Double monto) {
-        // 1. Llamar a la API externa
-        Map respuestaApi = restClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/latest")
-                        .queryParam("amount", monto)
-                        .queryParam("from", origen)
-                        .queryParam("to", destino)
-                        .build())
-                .retrieve()
-                .body(Map.class);
+        // 1. Llamo a la API externa
+        Map respuestaApi = restClient.get().uri(uriBuilder -> uriBuilder.path("/latest").queryParam("amount", monto).queryParam("from", origen).queryParam("to", destino).build()).retrieve().body(Map.class);
 
-        // 2. Extraer los datos
+        // 2. Extraigo los datos
         Map<String, Double> rates = (Map<String, Double>) respuestaApi.get("rates");
         Double montoConvertido = rates.get(destino);
         Double tasaCambio = montoConvertido / monto; 
 
-        // 3. Guardar en MySQL
+        // 3. Guardo en MySQL
         HistorialConversion historial = new HistorialConversion();
         historial.setMonedaOrigen(origen);
         historial.setMonedaDestino(destino);
@@ -50,7 +42,7 @@ public class DivisasService {
         historial.setFechaConsulta(LocalDateTime.now());
         repository.save(historial);
 
-        // 4. Armar el DTO de respuesta
+        // 4. Armo el DTO de respuesta
         ConversionResponse response = new ConversionResponse();
         response.setMontoOriginal(monto);
         response.setMonedaOrigen(origen);
@@ -65,8 +57,6 @@ public class DivisasService {
     public List<HistorialResponseDTO> obtenerHistorial(String origen, String destino) {
         List<HistorialConversion> lista = repository.findByMonedaOrigenAndMonedaDestinoOrderByFechaConsultaDesc(origen, destino);
         
-        return lista.stream()
-                .map(h -> new HistorialResponseDTO(h.getFechaConsulta(), h.getTasa()))
-                .collect(Collectors.toList());
+        return lista.stream().map(h -> new HistorialResponseDTO(h.getFechaConsulta(), h.getTasa())).collect(Collectors.toList());
     }
 }

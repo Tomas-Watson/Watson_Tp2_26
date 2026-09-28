@@ -61,10 +61,10 @@ public class CatalogoService {
         Comparator<Producto> comparador;
 
         if("nombre".equalsIgnoreCase(criterio)){
-            comparador = Comparator.comparing(Producto::getNombre);
+            comparador = Comparator.comparing(p-> p.getNombre());
 
         } else {
-            comparador = Comparator.comparing(Producto::getPrecio);
+            comparador = Comparator.comparing(p-> p.getPrecio());
         }
 
         if ("desc".equalsIgnoreCase(orden)) {
@@ -76,7 +76,7 @@ public class CatalogoService {
     }
 
     public Producto agregarProducto(Producto nuevo){
-        long nuevoId = productos.stream().mapToLong(Producto::getId).max().orElse(0) + 1;
+        long nuevoId = productos.stream().mapToLong(p->p.getId()).max().orElse(0) + 1;
 
         nuevo.setId(nuevoId);
         productos.add(nuevo);

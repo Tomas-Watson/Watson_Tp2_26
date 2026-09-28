@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 *
 * 
 */
+@RequestMapping("/api/catalogo")
 @RestController 
 public class CatalogoController {
     private final CatalogoService catalogoService;
@@ -35,7 +37,7 @@ public class CatalogoController {
     }
 
     @Operation(summary = "Obtener catálogo", description = "Devuelve todos los productos disponibles.")
-    @GetMapping("/api/catalogo")
+    @GetMapping
     public ApiResponse<List<Producto>> obtenerCatalogo(){
 
         //Con esto solicito la lista al servicio
@@ -51,7 +53,7 @@ public class CatalogoController {
     }
 
     @Operation(summary = "Buscar productos", description = "Filtra el catalogo por categoria y rango de precios")
-    @GetMapping("/api/catalogo/buscar")
+    @GetMapping("/buscar")
     /*
     *
     * La anotacion @RequestParam en JAVA sirve para extraer parametros de una solicitud HTTP
@@ -80,7 +82,7 @@ public class CatalogoController {
     *  
     */
     @Operation(summary = "Ordenar productos", description = "Ordena el catálogo por precio o nombre")
-    @GetMapping("/api/catalogo/ordenar")
+    @GetMapping("/ordenar")
     public ApiResponse<List<Producto>> ordenarProducto(@RequestParam String criterio, @RequestParam(required = false, defaultValue = "asc") String orden){
         List<Producto> ordenados = catalogoService.ordenarProductos(criterio, orden);
 
@@ -101,7 +103,7 @@ public class CatalogoController {
     *  
     */
     @Operation(summary = "Agregar producto", description = "Añade un nuevo producto al catalogo")
-    @PostMapping("/api/catalogo")
+    @PostMapping
 
     /*
     * 
@@ -158,7 +160,7 @@ public class CatalogoController {
     * Ejemplo : @PutMapping("/api/catalogo/{id}/stock"), la URI : "/api/catalogo/{id}/stock"
     */
     @Operation(summary = "Modificar stock", description = "Suma o resta stock a un producto existente")
-    @PutMapping("/api/catalogo/{id}/stock")
+    @PutMapping("/{id}/stock")
     public ApiResponse<Producto> modificarStock(@PathVariable Long id, @RequestParam int cantidad){
         Producto producto = catalogoService.buscarPorId(id);
 
@@ -193,7 +195,7 @@ public class CatalogoController {
     * metodos especificos de un controlador
     */
     @Operation(summary = "Eliminar producto", description = "Eliminar un producto por su Id")
-    @DeleteMapping("/api/catalogo/{id}")
+    @DeleteMapping("/{id}")
     public ApiResponse<Object> eliminarProducto(@PathVariable Long id){
         
         boolean eliminado = catalogoService.eliminarProducto(id);

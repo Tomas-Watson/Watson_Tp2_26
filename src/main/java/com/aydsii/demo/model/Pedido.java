@@ -41,7 +41,7 @@ public class Pedido {
     private List<DetallePedido> detalles;
 
     public Double getTotal() {
-        return detalles.stream().mapToDouble(DetallePedido::getSubtotal).sum();
+        return detalles.stream().mapToDouble(d -> d.getSubtotal()).sum();
     }
 
     public Long getId() { return id; }

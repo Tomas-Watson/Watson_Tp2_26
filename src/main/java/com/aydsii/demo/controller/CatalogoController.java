@@ -52,14 +52,15 @@ public class CatalogoController {
         return respuesta;
     }
 
-    @Operation(summary = "Buscar productos", description = "Filtra el catalogo por categoria y rango de precios")
-    @GetMapping("/buscar")
+    
     /*
     *
     * La anotacion @RequestParam en JAVA sirve para extraer parametros de una solicitud HTTP
     * (Como los valores que van en la URL despues del signo ? o datos enviados en un form)
     * y asignarlos directamente a los argumentos de un metodo o controlador
     */
+    @Operation(summary = "Buscar productos", description = "Filtra el catalogo por categoria y rango de precios")
+    @GetMapping("/buscar")
     public ApiResponse <List<Producto>> buscarProductos(@RequestParam(required = false) String categoria,@RequestParam(required = false) Double precioMin,@RequestParam(required = false) Double precioMax){
 
             
@@ -101,11 +102,6 @@ public class CatalogoController {
     * 
     * Tambien se le debe pasar una URI como a toda solicitud HTTP
     *  
-    */
-    @Operation(summary = "Agregar producto", description = "Añade un nuevo producto al catalogo")
-    @PostMapping
-
-    /*
     * 
     * Las anotaciones de @RequestBody y @Valid se usan juntas para recibir y validar datos
     * enviados por el cliente en formato JSON dentro de una peticion HTTP
@@ -128,6 +124,8 @@ public class CatalogoController {
     * respuesta HTTP 400 (Bad Request).
     * 
     */
+    @Operation(summary = "Agregar producto", description = "Añade un nuevo producto al catalogo")
+    @PostMapping
     public ApiResponse<Producto> agregarProducto(@Valid @RequestBody Producto producto){
         Producto nuevo = catalogoService.agregarProducto(producto);
 

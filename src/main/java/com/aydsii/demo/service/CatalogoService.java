@@ -16,6 +16,7 @@ import java.util.Comparator;
 */
 @Service
 public class CatalogoService {
+    
     private List<Producto> productos = new ArrayList<>();
 
     public CatalogoService(){

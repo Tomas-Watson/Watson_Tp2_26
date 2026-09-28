@@ -20,7 +20,7 @@ public class DivisasService {
     public DivisasService(HistorialConversionRepository repository) {
         this.repository = repository;
         // Inicializamos el cliente HTTP apuntando a Frankfurter
-        this.restClient = RestClient.builder().baseUrl("https://api.frankfurter.app").build();
+        this.restClient = RestClient.builder().baseUrl("https://api.frankfurter.dev/v2").build();
     }
 
     public ConversionResponse consultarYGuardar(String origen, String destino, Double monto) {

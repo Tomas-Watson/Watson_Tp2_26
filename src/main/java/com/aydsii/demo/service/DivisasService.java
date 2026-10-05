@@ -20,9 +20,10 @@ public class DivisasService {
     public DivisasService(HistorialConversionRepository repository) {
         this.repository = repository;
         // Inicializamos el cliente HTTP apuntando a Frankfurter
-        this.restClient = RestClient.builder().baseUrl("https://api.frankfurter.dev/v2").build();
+        this.restClient = RestClient.builder().baseUrl("https://api.frankfurter.dev/v1").build();
     }
 
+    //POST
     public ConversionResponse consultarYGuardar(String origen, String destino, Double monto) {
         // 1. Llamo a la API externa
         Map respuestaApi = restClient.get().uri(uriBuilder -> uriBuilder.path("/latest").queryParam("amount", monto).queryParam("from", origen).queryParam("to", destino).build()).retrieve().body(Map.class);
@@ -54,6 +55,7 @@ public class DivisasService {
         return response;
     }
 
+    //GET
     public List<HistorialResponseDTO> obtenerHistorial(String origen, String destino) {
         List<HistorialConversion> lista = repository.findByMonedaOrigenAndMonedaDestinoOrderByFechaConsultaDesc(origen, destino);
         

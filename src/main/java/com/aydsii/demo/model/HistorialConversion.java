@@ -3,6 +3,11 @@ package com.aydsii.demo.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+/*
+*
+*  Al guardar la tabla, se guardo en la misma base de datos del ejercicio 5 
+*    
+*/
 @Entity
 @Table(name = "historial_conversiones")
 public class HistorialConversion {

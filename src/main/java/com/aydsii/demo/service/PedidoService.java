@@ -20,13 +20,10 @@ public class PedidoService {
     }
 
     public List<PedidoResponseDTO> buscarPedidos(Long clienteId, String categoria, LocalDate fechaDesde, LocalDate fechaHasta, String estado) {
-        // 1. Buscamos en la base de datos con los filtros (si son nulos, el repositorio los ignora)
+        // 1. Busca en la base de datos con los filtros (si son nulos, el repositorio los ignora)
         List<Pedido> pedidos = pedidoRepository.buscarPedidos(clienteId, categoria, fechaDesde, fechaHasta, estado);
-
-        // 2. Transformamos la lista de Entidades a DTOs
-        return pedidos.stream()
-                .map(this::mapearAPedidoResponseDTO)
-                .collect(Collectors.toList());
+        // 2. Transforma la lista de Entidades a DTOs
+        return pedidos.stream().map(this::mapearAPedidoResponseDTO).collect(Collectors.toList());
     }
 
     // Método auxiliar para convertir un Pedido en PedidoResponseDTO
@@ -34,13 +31,12 @@ public class PedidoService {
         PedidoResponseDTO dto = new PedidoResponseDTO();
         dto.setPedidoId(pedido.getId());
         
-        // El TP pide el nombre completo del cliente
         dto.setCliente(pedido.getCliente().getNombre() + " " + pedido.getCliente().getApellido());
         dto.setFecha(pedido.getFechaPedido());
         dto.setEstado(pedido.getEstado());
         dto.setTotalPedido(pedido.getTotal());
 
-        // Transformamos los detalles del pedido a ProductoPedidoDTO
+        // Transforma los detalles del pedido a ProductoPedidoDTO
         List<ProductoPedidoDTO> productosDTO = pedido.getDetalles().stream()
                 .map(this::mapearAProductoPedidoDTO)
                 .collect(Collectors.toList());

@@ -23,7 +23,7 @@ public class ClienteDTO {
     * coincida con una expresion regular (regex) 
     * 
     */
-   @Pattern(regexp = "\\d*", message = "El teléfono solo debe contener dígitos")
+    @Pattern(regexp = "\\d*", message = "El teléfono solo debe contener dígitos")
     private String telefono; 
 
     @NotBlank(message = "El email es obligatorio")

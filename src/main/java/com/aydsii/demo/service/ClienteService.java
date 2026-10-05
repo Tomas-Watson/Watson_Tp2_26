@@ -4,8 +4,8 @@ import com.aydsii.demo.dto.ClienteDTO;
 import com.aydsii.demo.model.Cliente;
 import com.aydsii.demo.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
+
 /*
 *
 * La anotacion @Service marca una clase como un componente de la 
@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 * aplicacion
 *
 */
+
 @Service
 public class ClienteService {
     private final ClienteRepository clienteRepository;

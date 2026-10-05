@@ -9,6 +9,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Long>{
+    /*
+    *
+    * La anotacion @Query se usa para definir consultas personalizadas
+    * directamente en los metodos de las interfaces de un repositorio
+    * 
+    */
     @Query("""
         SELECT DISTINCT p 
         FROM Pedido p 
@@ -23,6 +29,15 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long>{
         AND (:estado IS NULL OR p.estado = :estado)
     """)
     List<Pedido> buscarPedidos(
+
+
+        /*
+        *
+        * La anotacion @Param se usa para vincular los argumentos de un 
+        * metodo de un repositorio con los parametros con nombre en una 
+        * consulta personalizada escrita en la anotacion
+        * 
+        */
         @Param("clienteId") Long clienteId,
         @Param("categoria") String categoria,
         @Param("fechaDesde") LocalDate fechaDesde,

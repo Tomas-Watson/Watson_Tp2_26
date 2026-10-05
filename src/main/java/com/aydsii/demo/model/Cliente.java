@@ -3,6 +3,10 @@ package com.aydsii.demo.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+/*
+* El nombre de la tabla siempre va en plural, tal como es en este caso 
+* que la tabla se llama "clientes"
+*/
 @Entity
 @Table(name = "clientes") //Le indica a Hibernate el nombre exacto de la tabla de SQL
 public class Cliente {
